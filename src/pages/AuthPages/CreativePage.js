@@ -22,7 +22,7 @@ const CreativePage = ({history}) => {
             </Row>
             <Row>
                 <Col>
-                    <CreativeForm />
+                    <CreativeForm history={history} />
                 </Col>
             </Row>
         </AuthContainer>

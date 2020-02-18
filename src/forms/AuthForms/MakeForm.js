@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+// BOOTSTRAP
 import Form from 'react-bootstrap/Form';
 
 // Components
@@ -26,7 +28,7 @@ const MakerForm = ({history}) => {
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        let user = await RegisterMaker({email: state.email, password: state.password})
+        let user = await RegisterMaker(state)
         if(user.sucess){
             window.open('/maker', '_self')
         }

@@ -1,3 +1,11 @@
 .color-primary {
   color:#fdb439;
 }
+
+.bg-mvp-primary {
+  background: #fdb439 !important;
+}
+
+.MuiPaginationItem-textPrimary.Mui-selected {
+  background-color: #fdb439 !important;
+}

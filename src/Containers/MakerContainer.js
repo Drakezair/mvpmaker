@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 // BOOTSTRAP
-import { Row, Col, Dropdown, Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Row, Col, Dropdown, Button, Container, Navbar } from 'react-bootstrap';
 
 // ICONS
 import LogoIcon from '../assets/icons/conference.png';

@@ -12,7 +12,7 @@ const userRef = db.ref('users')
 const RegisterMaker = async (data) => {
     try {
         let resp = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-        await userRef.child(resp.user.uid).set(data)
+        await userRef.child(resp.user.uid).set({...data, type: 0})
         return {sucess: true, user: resp.user};
     }
     catch(error){
@@ -20,6 +20,40 @@ const RegisterMaker = async (data) => {
     }
 }
 
+// ======================================
+// REGISTRAR UN USUARIO MAKER
+// ======================================
+const RegisterCreative = async (data) => {
+    try {
+        let resp = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+        await userRef.child(resp.user.uid).set({...data, type: 1})
+        return {sucess: true, user: resp.user};
+    }
+    catch(error){
+        return {sucess: false, message: error.message};
+    }
+}
+
+// ======================================
+// LOGIN UN USUARIO
+// ======================================
+
+const LoginWithEmailAndPassword = async (email, password) =>{
+
+    try{
+        let resp = await firebase.auth().signInWithEmailAndPassword(email, password)
+        let user = await userRef.child(resp.user.uid).once("value")
+        return {sucess: true, user: user.val()};
+    }
+    catch(error){
+        return {sucess: false, message: error.code};
+    }
+
+}
+
+
 export {
-    RegisterMaker
+    RegisterMaker,
+    RegisterCreative,
+    LoginWithEmailAndPassword
 }
