@@ -81,7 +81,7 @@ const projectHistory = async (hook, type_user) =>{
                     snapshot.val()[item][type_user] === store.getState().user.uid
                 )
 
-                hook(projectsDone.map(item=> snapshot.val()[item]))
+                hook(projectsDone.map(item=> {return {uid: item, ...snapshot.val()[item]}}))
             }
             else{
                 return []
@@ -89,7 +89,30 @@ const projectHistory = async (hook, type_user) =>{
         })
     }
     catch(error){
-        console.log('error')
+        return {succes: false, error}
+    }
+}
+
+// ======================================
+// LISTENER PROJECTS HISTORY
+// ======================================
+
+const projectCurrents = async (hook, type_user) =>{
+    try{
+        await projectsDbRef.orderByChild(type_user).equalTo(store.getState().user.uid).on("value",(snapshot)=>{
+            console.log(snapshot.val())
+            if(snapshot.val() !== null){
+                const projects = Object.keys(snapshot.val()).filter(item => 
+                    snapshot.val()[item]['status'] < 2
+                )
+                hook(projects.map(item=> {return {uid: item, ...snapshot.val()[item]}}))
+            }
+            else{
+                return []
+            }
+        })
+    }
+    catch(error){
         return {succes: false, error}
     }
 }
@@ -101,5 +124,6 @@ export {
 
     // PROJECT
     getProjectById,
-    projectHistory
+    projectHistory,
+    projectCurrents
 }

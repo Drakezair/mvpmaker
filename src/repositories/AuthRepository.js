@@ -37,7 +37,7 @@ const RegisterCreative = async (data) => {
     try {
         let resp = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
         await userRef.child(resp.user.uid).set({...data, type: 1})
-        store.dispatch(loginUser({email:data.email, type: 1, uid: resp.user.uid}))
+        store.dispatch(loginUser({...data, type: 1, uid: resp.user.uid}))
         return {sucess: true, user: resp.user};
     }
     catch(error){
@@ -51,7 +51,6 @@ const RegisterCreative = async (data) => {
 
 const LoginWithEmailAndPassword = async (email, password) =>{
     try{
-        await firebase.auth().signOut()
         let resp = await firebase.auth().signInWithEmailAndPassword(email, password)
         let user = await userRef.child(resp.user.uid).once("value")
         store.dispatch(loginUser({...user.val(), uid: resp.user.uid}))
@@ -64,9 +63,27 @@ const LoginWithEmailAndPassword = async (email, password) =>{
 
 }
 
+// ======================================
+// cerrar sesion
+// ======================================
+
+const signOut = async (email, password) =>{
+    try{
+        await firebase.auth().signOut()
+        store.dispatch(loginUser({}))
+        window.open('/auth', '_self')
+    }
+    catch(error){
+        console.log(error)
+        return {sucess: false, message: error.code};
+    }
+
+}
+
 
 export {
     RegisterMaker,
     RegisterCreative,
-    LoginWithEmailAndPassword
+    LoginWithEmailAndPassword,
+    signOut
 }

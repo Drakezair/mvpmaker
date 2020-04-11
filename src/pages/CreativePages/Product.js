@@ -15,7 +15,7 @@ const Product = ({location, history}) => {
         const initData = async () =>{
             if(location.state === undefined){
                 const prod = await getProductByUrl(window.location.pathname.split('product')[1])
-                
+                console.log(prod)
                 changeProduct(prod.data)
             }
             else{

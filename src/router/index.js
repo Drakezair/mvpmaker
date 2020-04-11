@@ -6,7 +6,9 @@ import { AppContainer } from '../Containers';
 import { 
     Home as CreativeHome, 
     Product, 
-    ProjectDetail as CreativeProjectDetail
+    ProjectDetail as CreativeProjectDetail,
+    HistoryPage as CreativeHistory,
+    CurrentProjectsPage as CreativeCurrentProjectsPage
 } from '../pages/CreativePages';
 
 // AUTH
@@ -21,14 +23,14 @@ import {
 import { 
     ProjectDetail as MakerProjectDetail,
     Home as MakerHome,
-    HistoryPage
+    HistoryPage as MakerHistory,
+    CurrentProjectsPage as MakerCurrentProjectsPage
 } from '../pages/MakerPages';
-
 
 
 const AppRouter = () =>{
 
-
+    
     return(
         <Router >
             <Switch>
@@ -41,12 +43,15 @@ const AppRouter = () =>{
                 <AppContainer  >
                     {/* CreativePaths */}
                     <Route path='/creative/home' name='Home' component={CreativeHome} />
+                    <Route path='/creative/current' name='Home' component={CreativeCurrentProjectsPage} />
+                    <Route path='/creative/history' name='Home' component={CreativeHistory} />
                     <Route path='/creative/product/:title' name='Home' component={Product} />
                     <Route path='/creative/project/:id' name='Home' component={CreativeProjectDetail} />
 
-                {/* MakerPath */}
+                    {/* MakerPath */}
                     <Route path='/maker/home' name='Home' component={MakerHome} />
-                    <Route path='/maker/history' name='Home' component={HistoryPage} />
+                    <Route path='/maker/history' name='Home' component={MakerHistory} />
+                    <Route path='/maker/current' name='Home' component={MakerCurrentProjectsPage} />
                     <Route path='/maker/project/:id' name='Home' component={MakerProjectDetail} />
                     <Route path='/maker/hjome' name='Home' component={MakerHome} />
                 </AppContainer>

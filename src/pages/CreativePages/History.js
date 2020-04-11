@@ -14,7 +14,7 @@ const HistoryPage = ({history}) => {
     const [projects, changeProjects] = useState([])
 
     useEffect(()=>{
-        const projectsListener = async () => await projectHistory(changeProjects, 'maker_id')
+        const projectsListener = async () => await projectHistory(changeProjects, 'creative_id')
         projectsListener()
     }, [])
 

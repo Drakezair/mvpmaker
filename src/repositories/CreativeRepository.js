@@ -4,7 +4,6 @@ import {
 
 // STORE
 import store from '../redux/store';
-import { addProject } from '../redux/actions';
 
 const db = firebase.database()
 
@@ -54,7 +53,6 @@ const createRequestProject = async (data) => {
             ...data
         })
 
-        store.dispatch(addProject(newProjecRef.key))
         return {succes: true, id:newProjecRef.key }
     }
     catch(error){

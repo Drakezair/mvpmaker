@@ -8,10 +8,3 @@ export const loginUser = (user) =>{
         user
     }
 }
-
-export const addProject = (id) => {
-    return{
-        type: LOGIN_USER,
-        projectId: id 
-    }  
-}

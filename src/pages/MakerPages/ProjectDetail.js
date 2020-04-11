@@ -98,10 +98,12 @@ const ProjectDetail = ({match}) =>{
                                             placeholder='type a message'
                                             onChange={(e)=>changeMsg(e)}
                                             value={msg}
+                                            disabled={data.status === 2 ? true : false}
                                         /> 
                                     </Col>
                                     <Col className='col-2' >
                                         <Button 
+                                            disabled={data.status === 2 ? true : false}
                                             text='send' 
                                             onClick={()=> send()}
                                         /> 

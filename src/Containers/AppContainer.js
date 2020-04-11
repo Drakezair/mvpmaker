@@ -9,6 +9,7 @@ import LogoIcon from '../assets/icons/conference.png';
 
 // STORE
 import store from '../redux/store';
+import { signOut } from '../repositories/AuthRepository';
 
 const AppContainer =  ({children, location}) => {
 
@@ -46,9 +47,7 @@ const AppContainer =  ({children, location}) => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu size="lg" >
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                <Dropdown.Item onClick={()=>signOut()} >Cerrar sesión</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>

@@ -1,5 +1,5 @@
 import {
-    LOGIN_USER, ADD_PROJECT
+    LOGIN_USER,
 } from './constant';
 
 import {loadState} from '../helpers/localStorage';
@@ -21,11 +21,6 @@ const reducerApp = (state = {hola: "hola"}, action) =>{
             return {
                 ...state,
                 user: action.user
-            }
-        case ADD_PROJECT:
-            return {
-                ...state,
-                projects: state.projects.push(action.projectId)
             }
         default:
             return defaultState

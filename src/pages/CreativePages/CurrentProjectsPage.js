@@ -6,15 +6,15 @@ import { Col, Row, Table} from 'react-bootstrap';
 // COMPONENT
 import { Button } from '../../Components';
 // REPOSITORY
-import { projectHistory } from '../../repositories/GeneralRepository';
+import { projectCurrents } from '../../repositories/GeneralRepository';
 
 
-const HistoryPage = ({history}) => {
+const CurrentProjectsPage = ({history}) => {
 
     const [projects, changeProjects] = useState([])
 
     useEffect(()=>{
-        const projectsListener = async () => await projectHistory(changeProjects, 'maker_id')
+        const projectsListener = async () => await projectCurrents(changeProjects, 'creative_id')
         projectsListener()
     }, [])
 
@@ -46,7 +46,7 @@ const HistoryPage = ({history}) => {
                                                     <td><p>{project.desc}</p></td>
                                                     <td><p>${project.price}</p></td>
                                                     <td>
-                                                        <Button onClick={()=>history.push(`/maker/project/${project.uid}`)} text='See details' />
+                                                        <Button onClick={()=>history.push(`/creative/project/${project.uid}`)} text='See details' />
                                                     </td>
                                                 </tr>
                                             )
@@ -62,5 +62,5 @@ const HistoryPage = ({history}) => {
 }
 
 export {
-    HistoryPage
+    CurrentProjectsPage
 }
