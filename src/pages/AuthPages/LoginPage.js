@@ -13,21 +13,21 @@ import { LoginForm } from '../../forms/AuthForms';
 // COMPONENTS
 import { Link } from '../../Components';
 
-const LoginPage = () => {
+const LoginPage = ({history}) => {
 
     return (
         <AuthContainer >
             <Row>
                 <Col>
-                    <LoginForm />
+                    <LoginForm history={history} />
                 </Col>
             </Row>
             <Row className='my-4' >
                 <Col className='text-center' >
-                    <Link text='Sign-up' to='register' />
+                    <Link text='Sign-up' to='/auth/register' />
                 </Col>
                 <Col className='text-center' >
-                    <Link text='Forgot password?' to='forgot' />
+                    <Link text='Forgot password?' to='/auth/forgot' />
                 </Col>
             </Row>
         </AuthContainer>

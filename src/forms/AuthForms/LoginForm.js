@@ -10,10 +10,14 @@ import {showAlert, Alert} from '../../Components/Alerts'
 // REPOSITORY
 import { LoginWithEmailAndPassword } from "../../repositories/AuthRepository";
 
-const LoginForm = () => {
+// ICONS 
+import EyeIcon from '../../assets/icons/eye.png';
+
+const LoginForm = ({history}) => {
 
     const [formdata, changeFormdata] = useState({})
     const [alert, changeAlert] = useState({})
+    const [showPass, changeShowPass] = useState(false)
 
 
     const handleState = (st, value) => {
@@ -23,11 +27,24 @@ const LoginForm = () => {
         })
     } 
 
+    const handleShowPass = () => {
+        changeShowPass(!showPass)
+    }
+
     const handleSubmit = async (e) =>{
         e.preventDefault()
         let user = await LoginWithEmailAndPassword(formdata.email, formdata.password)
         if(user.sucess){
-
+            switch(user.user.type){
+                case 0:
+                    history.replace('/maker/home')
+                    break;
+                case 1:
+                    history.replace('/creative/home')
+                    break;
+                default:
+                    return null
+            }
         }
         else{
             showAlert(changeAlert, user.message)
@@ -44,6 +61,9 @@ const LoginForm = () => {
             <Input 
                 placeholder="Password"
                 onChange={(e)=>handleState('password', e)}
+                type={showPass ? "text" : "password"}
+                icon={EyeIcon}
+                onIconClick={()=>handleShowPass()}
             />
             <Button 
                 text='Sign-in'

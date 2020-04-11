@@ -1,17 +1,57 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-// ROUTERS
-import AuthRouter from './AuthRouter'
-import MakerRouter from './MakerRouter';
+// CREATIVE
+import { AppContainer } from '../Containers';
+import { 
+    Home as CreativeHome, 
+    Product, 
+    ProjectDetail as CreativeProjectDetail
+} from '../pages/CreativePages';
+
+// AUTH
+import { 
+    LoginPage, 
+    RegisterPage, 
+    MakerPage, 
+    CreativePage 
+} from '../pages/AuthPages';
+
+// MAKER
+import { 
+    ProjectDetail as MakerProjectDetail,
+    Home as MakerHome,
+    HistoryPage
+} from '../pages/MakerPages';
+
+
 
 const AppRouter = () =>{
 
+
     return(
-        <Router>
+        <Router >
             <Switch>
-                <Route path="/auth" component={AuthRouter} />
-                <Route path="/maker" component={MakerRouter} />
+                {/* AuthPaths */}
+                <Route path="/auth/register/maker"  component={MakerPage} />
+                <Route path="/auth/register/creative"  component={CreativePage} />
+                <Route path="/auth/register"  component={RegisterPage} />
+                <Route path="/auth/" component={LoginPage} />
+               
+                <AppContainer  >
+                    {/* CreativePaths */}
+                    <Route path='/creative/home' name='Home' component={CreativeHome} />
+                    <Route path='/creative/product/:title' name='Home' component={Product} />
+                    <Route path='/creative/project/:id' name='Home' component={CreativeProjectDetail} />
+
+                {/* MakerPath */}
+                    <Route path='/maker/home' name='Home' component={MakerHome} />
+                    <Route path='/maker/history' name='Home' component={HistoryPage} />
+                    <Route path='/maker/project/:id' name='Home' component={MakerProjectDetail} />
+                    <Route path='/maker/hjome' name='Home' component={MakerHome} />
+                </AppContainer>
+                
+
             </Switch>
         </Router>
     )

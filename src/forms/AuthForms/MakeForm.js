@@ -30,7 +30,7 @@ const MakerForm = ({history}) => {
         e.preventDefault()
         let user = await RegisterMaker(state)
         if(user.sucess){
-            window.open('/maker', '_self')
+            history.replace('/creative/home')
         }
         else{
             showAlert(changeAlert, user.message)

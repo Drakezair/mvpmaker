@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom'
 
 // BOOTSTRAP
 import Form from 'react-bootstrap/Form';
@@ -16,7 +17,7 @@ import { RegisterCreative } from "../../repositories/AuthRepository";
 import EyeIcon from '../../assets/icons/eye.png';
 
 
-const CreativeForm = ({history}) => {
+const CreativeForm = withRouter(({history}) => {
 
     const [state, changeState] = useState({
         username: '',
@@ -30,7 +31,7 @@ const CreativeForm = ({history}) => {
         e.preventDefault()
         let user = await RegisterCreative(state)
         if(user.sucess){
-            window.open('/maker', '_self')
+            history.replace('/creative/home')
         }
         else{
             showAlert(changeAlert, user.message)
@@ -55,20 +56,20 @@ const CreativeForm = ({history}) => {
                 placeholder="Username"
                 name="username"
                 onChange={(e)=> handleState('username', e)}
-                required
+                // required
             />
             <Input 
                 placeholder="Email"
                 name='Email'
                 onChange={(e)=> handleState('email', e)}
-                required
+                // required
                 type='email'
             />
             <Input 
                 placeholder="Password"
                 name="password"
                 onChange={(e)=> handleState('password', e)}
-                required
+                // required
                 type={showPass ? "text" : "password"}
                 icon={EyeIcon}
                 onIconClick={()=>handleShowPass()}
@@ -80,6 +81,7 @@ const CreativeForm = ({history}) => {
             />
         </Form>
     )
-}
+})
+
 
 export { CreativeForm }

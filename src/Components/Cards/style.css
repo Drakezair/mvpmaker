@@ -1,0 +1,4 @@
+.card-product-contain:hover {
+    transition: ease-in 0.21s;
+    transform: scale(1.03);
+}

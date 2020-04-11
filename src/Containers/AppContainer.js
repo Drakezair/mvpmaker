@@ -7,22 +7,42 @@ import { Row, Col, Dropdown, Button, Container, Navbar } from 'react-bootstrap';
 // ICONS
 import LogoIcon from '../assets/icons/conference.png';
 
-const MakerContainer = ({children, basename}) => {
+// STORE
+import store from '../redux/store';
 
-    const [path, changePath] = useState('')
+const AppContainer =  ({children, location}) => {
+
+    const [path, changePath] = useState('/home')
+    const [menu, setMenu] = useState([])
 
     useEffect(()=>{
-        changePath(window.location.pathname.split(basename)[1])
-    }, [basename])
+        changePath(location.pathname)
+        if(window.location.href.toString().includes('maker')){
+            setMenu([
+                {text: 'home', path: '/maker/home'},
+                {text: 'current projects', path: '/maker/current'},
+                {text: 'history projects', path: '/maker/history'},
+            ])
+        }
+        if(window.location.href.toString().includes('creative')){
+            setMenu([
+                {text: 'home', path: '/creative/home'},
+                {text: 'current projects', path: '/creative/current'},
+                {text: 'history projects', path: '/creative/history'},
+            ])
+        }
+    }, [location])
+
 
     return(
-        <Row>
+        <Row >
+            <Col className='d-none d-lg-block col-2' ></Col>
             <Col className='makerContainer-sidebar px-0 vh-100 d-none d-lg-block col-2' >
                 <Row className='makerContainer-sidebar-profile m-0' >
                     <Col className='p-0' >
                         <Dropdown >
                             <Dropdown.Toggle variant="success" as={Button} className='d-block makerContainer-sidebar-profile  w-100 mx-0' id="dropdown-basic">
-                                Dropdown Button
+                                {store.getState().user.username}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu size="lg" >
@@ -34,13 +54,13 @@ const MakerContainer = ({children, basename}) => {
                     </Col>
                 </Row>
                 {
-                    children.props.children.map((item, i)=>{
+                    menu.map((item, i)=>{
                     return(
                         <Row key={i} >
                             <Col >
-                                <Link style={{textDecoration:'none'}} to={item.props.path} onClick={()=>changePath(item.props.path)} >
-                                    <span className={`makerContainer-nav p-2 ${item.props.path === path ? 'makerContainer-active' : ''} `} >
-                                        <p className='text-center my-0' >{item.props.name}</p>
+                                <Link style={{textDecoration:'none'}} to={item.path} onClick={()=>changePath(item.path)} >
+                                    <span className={`makerContainer-nav p-2 ${item.path === path ? 'makerContainer-active' : ''} `}>
+                                        <p className='text-center my-0' >{item.text}</p>
                                     </span>
                                 </Link>
                             </Col>
@@ -66,16 +86,20 @@ const MakerContainer = ({children, basename}) => {
                         </Navbar>
                     </Col>
                 </Row>
-                <Container>
-                    <Row>
-                        <Col>
-                            {children}
-                        </Col>
-                    </Row>
-                </Container>
+                <Row>
+                    <Col>
+                        <Container>
+                            <Row>
+                                <Col>
+                                    {children}
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Col>
+                </Row>
             </Col>
         </Row>
     )
 }
 
-export {MakerContainer}
+export {AppContainer}
